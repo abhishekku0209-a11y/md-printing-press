@@ -1,0 +1,26 @@
+{
+  "overview": "A complete premium printing press website for MD Printing Press (Project Bind Wala) in Noida. Features a conversion-focused public site with services showcase, portfolio gallery, testimonials, instant quote form, and WhatsApp integration — plus a full admin dashboard for managing orders, quotes, content, portfolio images, and services.",
+  "features": [
+    "Premium public website with hero, services, portfolio, and testimonials",
+    "Instant quote form with lead capture and order tracking",
+    "Floating WhatsApp button linked to business number",
+    "Secure admin dashboard with Internet Identity login",
+    "Full content management — edit all website text from admin",
+    "Quote & order management with status tracking",
+    "Portfolio image upload and gallery management",
+    "Services & pricing editor",
+    "Testimonials manager with realistic local placeholders",
+    "SEO-optimized with JSON-LD schema and local Noida keywords"
+  ],
+  "category": "business",
+  "tags": [
+    "printing",
+    "business",
+    "noida",
+    "admin-dashboard",
+    "portfolio",
+    "quotes",
+    "local-seo"
+  ],
+  "last_updated": "2026-04-11T14:30:50.890Z"
+}

@@ -1,0 +1,176 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Testimonial = 
+ record {
+   businessType: text;
+   clientName: text;
+   displayOrder: nat;
+   id: nat;
+   isVisible: bool;
+   quote: text;
+   rating: nat;
+ };
+type Service = 
+ record {
+   description: text;
+   displayOrder: nat;
+   icon: text;
+   id: nat;
+   imageUrl: opt text;
+   isActive: bool;
+   name: text;
+ };
+type QuoteStatus = 
+ variant {
+   Contacted;
+   Lost;
+   New;
+   Won;
+ };
+type Quote = 
+ record {
+   budgetRange: text;
+   createdAt: int;
+   email: text;
+   id: nat;
+   name: text;
+   phone: text;
+   projectDetails: text;
+   serviceType: text;
+   status: QuoteStatus;
+   timeline: text;
+ };
+type PortfolioItem = 
+ record {
+   displayOrder: nat;
+   id: nat;
+   imageUrl: text;
+   isVisible: bool;
+   serviceCategory: text;
+   title: text;
+ };
+type OrderStatus = 
+ variant {
+   Delivered;
+   InProgress;
+   Pending;
+   Ready;
+ };
+type Order = 
+ record {
+   amount: float64;
+   clientName: text;
+   createdAt: int;
+   description: text;
+   id: nat;
+   quoteId: opt nat;
+   serviceType: text;
+   status: OrderStatus;
+   updatedAt: int;
+ };
+type CreateTestimonialInput = 
+ record {
+   businessType: text;
+   clientName: text;
+   displayOrder: nat;
+   isVisible: bool;
+   quote: text;
+   rating: nat;
+ };
+type CreateServiceInput = 
+ record {
+   description: text;
+   displayOrder: nat;
+   icon: text;
+   imageUrl: opt text;
+   isActive: bool;
+   name: text;
+ };
+type CreateQuoteInput = 
+ record {
+   budgetRange: text;
+   email: text;
+   name: text;
+   phone: text;
+   projectDetails: text;
+   serviceType: text;
+   timeline: text;
+ };
+type CreatePortfolioItemInput = 
+ record {
+   displayOrder: nat;
+   imageUrl: text;
+   isVisible: bool;
+   serviceCategory: text;
+   title: text;
+ };
+type CreateOrderInput = 
+ record {
+   amount: float64;
+   clientName: text;
+   description: text;
+   quoteId: opt nat;
+   serviceType: text;
+ };
+type ContentBlock = 
+ record {
+   key: text;
+   updatedAt: int;
+   value: text;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createOrder: (input: CreateOrderInput) -> (Order);
+  createPortfolioItem: (input: CreatePortfolioItemInput) -> (PortfolioItem);
+  createQuote: (input: CreateQuoteInput) -> (Quote);
+  createService: (input: CreateServiceInput) -> (Service);
+  createTestimonial: (input: CreateTestimonialInput) -> (Testimonial);
+  deletePortfolioItem: (id: nat) -> (bool);
+  deleteService: (id: nat) -> (bool);
+  deleteTestimonial: (id: nat) -> (bool);
+  getAllOrders: () -> (vec Order);
+  getAllQuotes: () -> (vec Quote);
+  getCallerUserRole: () -> (UserRole) query;
+  getContentBlock: (key: text) -> (opt ContentBlock) query;
+  getContentBlocks: () -> (vec ContentBlock) query;
+  getOrder: (id: nat) -> (opt Order);
+  getPortfolioItems: () -> (vec PortfolioItem) query;
+  getQuote: (id: nat) -> (opt Quote);
+  getServices: () -> (vec Service) query;
+  getTestimonials: () -> (vec Testimonial) query;
+  isCallerAdmin: () -> (bool) query;
+  setContentBlock: (key: text, value: text) -> ();
+  updateOrderStatus: (id: nat, status: OrderStatus) -> (bool);
+  updatePortfolioItem: (id: nat, input: CreatePortfolioItemInput) -> (bool);
+  updateQuoteStatus: (id: nat, status: QuoteStatus) -> (bool);
+  updateService: (id: nat, input: CreateServiceInput) -> (bool);
+  updateTestimonial: (id: nat, input: CreateTestimonialInput) -> (bool);
+  verifyAdminCredentials: (id: text, password: text) -> (bool) query;
+}

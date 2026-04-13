@@ -1,0 +1,119 @@
+// Version: 1.0.0
+type ContentBlock__13198090 = {key : Text; updatedAt : Int; value : Text};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OrderStatus__272730104 = {#Delivered; #InProgress; #Pending; #Ready};
+type Order__141779993 =
+  {
+    amount : Float;
+    clientName : Text;
+    createdAt : Int;
+    description : Text;
+    id : Nat;
+    quoteId : ?Nat;
+    serviceType : Text;
+    status : OrderStatus__272730104;
+    updatedAt : Int
+  };
+type PortfolioItem__48665572 =
+  {
+    displayOrder : Nat;
+    id : Nat;
+    imageUrl : Text;
+    isVisible : Bool;
+    serviceCategory : Text;
+    title : Text
+  };
+type QuoteStatus__732674487 = {#Contacted; #Lost; #New; #Won};
+type Quote__360373269 =
+  {
+    budgetRange : Text;
+    createdAt : Int;
+    email : Text;
+    id : Nat;
+    name : Text;
+    phone : Text;
+    projectDetails : Text;
+    serviceType : Text;
+    status : QuoteStatus__732674487;
+    timeline : Text
+  };
+type Service__543570503 =
+  {
+    description : Text;
+    displayOrder : Nat;
+    icon : Text;
+    id : Nat;
+    imageUrl : ?Text;
+    isActive : Bool;
+    name : Text
+  };
+type Testimonial__736906089 =
+  {
+    businessType : Text;
+    clientName : Text;
+    displayOrder : Nat;
+    id : Nat;
+    isVisible : Bool;
+    quote : Text;
+    rating : Nat
+  };
+type UserRole__1054455867 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable contentBlocks :
+    {
+      var root : Node__46230540<Text, ContentBlock__13198090>;
+      var size : Nat__490723111
+    };
+  stable nextOrderId : {var value : Nat};
+  stable nextPortfolioId : {var value : Nat};
+  stable nextQuoteId : {var value : Nat};
+  stable nextServiceId : {var value : Nat};
+  stable nextTestimonialId : {var value : Nat};
+  stable orders :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Order__141779993]];
+      var elementIndex : Nat__490723111
+    };
+  stable portfolioItems :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PortfolioItem__48665572]];
+      var elementIndex : Nat__490723111
+    };
+  stable quotes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Quote__360373269]];
+      var elementIndex : Nat__490723111
+    };
+  stable services :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Service__543570503]];
+      var elementIndex : Nat__490723111
+    };
+  stable testimonials :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Testimonial__736906089]];
+      var elementIndex : Nat__490723111
+    }
+};
