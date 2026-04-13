@@ -1,8 +1,6 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "outputDirectory": ".next",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "buildCommand": "cd src/frontend && pnpm install --prefer-offline && pnpm build",
+  "outputDirectory": "src/frontend/dist",
+  "installCommand": "echo 'skip root install'",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
